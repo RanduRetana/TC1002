@@ -45,7 +45,7 @@ public class Board extends JPanel implements ActionListener {
         timer.start();
     }
     private void loadImage() {
-        ImageIcon ii = new ImageIcon("Animation01/images/star.png");
+        ImageIcon ii = new ImageIcon("Animation01/images/monito.png");
         star = ii.getImage();
     }
 
@@ -62,16 +62,28 @@ public class Board extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         x += dx;
-        y += dy;
+        y += dy+1;
+
+        // Get the width and height of the image
+        int imageWidth = star.getWidth(null);
+        int imageHeight = star.getHeight(null);
 
         // If the image hits the left or right edge, reverse the horizontal direction
-        if (x <= 0 || x >= B_WIDTH - 250) {
+        if (x <= 0) {
             dx *= -1;
+            x = 0; // Adjust position to be within the boundary
+        } else if (x >= B_WIDTH - imageWidth) {
+            dx *= -1;
+            x = B_WIDTH - imageWidth; // Adjust position to be within the boundary
         }
 
         // If the image hits the top or bottom edge, reverse the vertical direction
-        if ( y <= 0 || y >= B_HEIGHT - 250) {
+        if ( y <= 0) {
             dy *= -1;
+            y = 0; // Adjust position to be within the boundary
+        } else if (y >= B_HEIGHT - imageHeight) {
+            dy *= -1;
+            y = B_HEIGHT - imageHeight; // Adjust position to be within the boundary
         }
 
         repaint();
