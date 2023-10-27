@@ -1,3 +1,5 @@
+package Clase1;
+
 public class Lamp {
     private boolean isOn;
 

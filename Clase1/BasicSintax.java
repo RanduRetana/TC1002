@@ -1,3 +1,5 @@
+package Clase1;
+
 import java.util.Arrays;
 public class BasicSintax {
     public static int reverseInt(int n) {
