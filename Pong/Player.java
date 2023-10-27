@@ -22,7 +22,7 @@ public class Player extends Sprite {
         if (y < 0) {
             y = 0;
         } else if (y > B_HEIGHT - HEIGHT){
-            y = Board.HEIGHT - HEIGHT;
+            y = B_HEIGHT - HEIGHT;
         }
     }
 

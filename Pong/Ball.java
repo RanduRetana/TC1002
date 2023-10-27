@@ -13,10 +13,6 @@ public class Ball extends Sprite{
         dx = 2;
         dy = 2;
     }
-    public void move(){
-        x += dx;
-        y += dy;
-    }
     public void loadImage(){
         ImageIcon ii = new ImageIcon("Pong/images/boluki.png");
         image = ii.getImage();

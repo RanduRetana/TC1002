@@ -50,7 +50,7 @@ public class Board extends JPanel implements ActionListener {
         if(inGame){
             drawObjects(g);
         }else{
-            drawGameOver(g);
+            drawGameOver(g, playerScore, player2Score);
         }
         Toolkit.getDefaultToolkit().sync();
     }
@@ -68,11 +68,11 @@ public class Board extends JPanel implements ActionListener {
         g.drawImage(ball.getImage(), ball.getX(), ball.getY(), this);
     }
 
-    private void drawGameOver(Graphics g){
-        String msg = "Game Over";
-        Font small = new Font("Helvetica", Font.BOLD, 14);
+    private void drawGameOver(Graphics g, int playerScore, int player2Score){
+        String msg = "GAME OVER" + "\n" + " Player 1: " + playerScore + "\n" + " Player 2: " + player2Score;
+        Font small = new Font("Helvetica", Font.BOLD, 20);
         FontMetrics fm = getFontMetrics(small);
-        g.setColor(Color.white);
+        g.setColor(Color.black);
         g.setFont(small);
         g.drawString(msg, (B_WIDTH - fm.stringWidth(msg)) / 2, B_HEIGHT / 2);
     }
@@ -112,9 +112,27 @@ public class Board extends JPanel implements ActionListener {
 
     private void checkCollisions(){
         if(ball.getBounds().intersects(player.getBounds())){
-            ball.setDx(-ball.getDx());
+            int paddleYTop = player.getY();
+            int paddleYBottom = player.getY() + player.getHeight();
+            if(ball.getY() <= paddleYTop || ball.getY() + ball.getHeight() >= paddleYBottom){
+                ball.setDy(-ball.getDy());
+            } else if (ball.getY() + ball.getHeight() / 2 < paddleYTop + player.getHeight() / 2){
+                ball.setDy(-2);
+            } else if (ball.getY() + ball.getHeight() / 2 > paddleYTop + player.getHeight() / 2){
+                ball.setDy(2);
+            }
+        ball.setDx(-ball.getDx());
         }
         if(ball.getBounds().intersects(player2.getBounds())){
+            int paddleYTop = player2.getY();
+            int paddleYBottom = player2.getY() + player2.getHeight();
+            if(ball.getY() <= paddleYTop || ball.getY() + ball.getHeight() >= paddleYBottom){
+                ball.setDy(-ball.getDy());
+            } else if (ball.getY() + ball.getHeight() / 2 < paddleYTop + player2.getHeight() / 2){
+                ball.setDy(-2);
+            } else if (ball.getY() + ball.getHeight() / 2 > paddleYTop + player2.getHeight() / 2){
+                ball.setDy(2);
+            }
             ball.setDx(-ball.getDx());
         }
 
@@ -124,10 +142,16 @@ public class Board extends JPanel implements ActionListener {
 
         if(ball.getX() == 0){
             player2Score++;
+            if (player2Score == 5) {
+                inGame = false;
+            }
             startCountdown();
         }
         if(ball.getX() == 400){
             playerScore++;
+            if (playerScore == 5) {
+                inGame = false;
+            }
             startCountdown();
         }
         if(ball.getY() == 0){

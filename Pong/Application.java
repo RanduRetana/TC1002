@@ -13,7 +13,9 @@ public class Application extends JFrame {
     private void initUI() {
         add(new Board());
         setSize(500, 500);
-        setTitle("Board");
+        setTitle("Pong");
+        //center board on screen and make it visible to user and close on exit
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }

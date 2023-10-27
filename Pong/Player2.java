@@ -3,6 +3,8 @@ package Pong;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 
+import static Pong.Board.B_HEIGHT;
+
 public class Player2 extends Sprite{
     private int dy;
     private int WIDTH = 15;
@@ -14,6 +16,11 @@ public class Player2 extends Sprite{
     public void move(int dx, int dy){
         x += dx;
         y += dy;
+        if (y < 0) {
+            y = 0;
+        } else if (y > B_HEIGHT - HEIGHT){
+            y = B_HEIGHT - HEIGHT;
+        }
     }
     public void loadImage(){
         ImageIcon ii = new ImageIcon("Pong/images/playerLarge.png");
